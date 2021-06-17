@@ -1,11 +1,19 @@
 let questions = require("../database.js");
-//function for finding all questions
-function findAll() {
-  return questions.getAllQuestions();
+//function for finding all HTML questions
+function findAllHtml() {
+  return questions.getAllHTMLQuestions();
 }
-//function for getting questions of a specific category
-function findById(id) {
-  return questions.getQuestionById(id);
+//function for finding all CSS questions
+function findAllCss() {
+  return questions.getAllCSSQuestions();
+}
+//function for getting HTML questions of a specific difficulty
+function findHtmlById(id) {
+  return questions.getHTMLQuestionById(id);
+}
+//function for getting CSS questions of a specific difficulty
+function findCssById(id) {
+  return questions.getCSSQuestionById(id);
 }
 function create(question) {}
 
@@ -30,8 +38,10 @@ function remove(id) {
   });
 }
 module.exports = {
-  findAll,
-  findById,
+  findAllHtml,
+  findAllCss,
+  findHtmlById,
+  findCssById,
   create,
   update,
   remove,

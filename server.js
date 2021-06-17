@@ -1,20 +1,30 @@
 const http = require("http");
 const {
-  getQuestions,
-  getQuestion,
+  getHTMLQuestions,
+  getHTMLQuestionById,
   createQuestion,
   updateQuestion,
   deleteQuestion,
+  getCSSQuestions,
+  getCSSQuestionById,
 } = require("./controllers/questionController");
 const server = http.createServer((req, res) => {
-  if (req.url === "/api/questions" && req.method === "GET") {
-    getQuestions(req, res);
+  if (req.url === "/api/html-questions" && req.method === "GET") {
+    getHTMLQuestions(req, res);
+  } else if (req.url === "/api/css-questions" && req.method === "GET") {
+    getCSSQuestions(req, res);
   } else if (
-    req.url.match(/\/api\/questions\/([0-9]+)/) &&
+    req.url.match(/\/api\/html-questions\/([0-9]+)/) &&
     req.method === "GET"
   ) {
     const id = req.url.split("/")[3];
-    getQuestion(req, res, id);
+    getHTMLQuestionById(req, res, id);
+  } else if (
+    req.url.match(/\/api\/css-questions\/([0-9]+)/) &&
+    req.method === "GET"
+  ) {
+    const id = req.url.split("/")[3];
+    getCSSQuestionById(req, res, id);
   } else if (req.url === "/api/questions" && req.method === "POST") {
     createQuestion(req, res);
   } else if (

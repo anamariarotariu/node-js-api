@@ -1,10 +1,10 @@
 const Question = require("../models/questionModel");
 const { getPostData } = require("../utils");
 //@desc gets all question
-//@route GET /api/questions
-async function getQuestions(req, res) {
+//@route GET /api/html-questions
+async function getHTMLQuestions(req, res) {
   try {
-    const questions = await Question.findAll();
+    const questions = await Question.findAllHtml();
     res.writeHead(200, { "Content-Type": "application/json" });
     res.write(JSON.stringify(questions));
     res.end();
@@ -12,19 +12,43 @@ async function getQuestions(req, res) {
     console.log(error);
   }
 }
-//@desc gets a question by its id
-//@route GET /api/questions/:id
-async function getQuestion(req, res, id) {
+async function getCSSQuestions(req, res) {
   try {
-    const question = await Question.findById(id);
+    const cssQuestions = await Question.findAllCss();
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.write(JSON.stringify(cssQuestions));
+    res.end();
+  } catch (error) {
+    console.log(error);
+  }
+}
+//@desc gets a HTML question by its id
+//@route GET /api/html-questions/:id
+async function getHTMLQuestionById(req, res, id) {
+  try {
+    const question = await Question.findHtmlById(id);
     if (!question) {
-      console.log("question not found");
       res.writeHead(404, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ message: "Question not found" }));
     } else {
-      console.log("i found the question");
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(JSON.stringify(question));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+//@desc gets a CSS question by its id
+//@route GET /api/css-questions/:id
+async function getCSSQuestionById(req, res, id) {
+  try {
+    cssQuestion = await Question.findCssById(id);
+    if (!cssQuestion) {
+      res.writeHead(404, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ message: "Question not found" }));
+    } else {
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify(cssQuestion));
     }
   } catch (error) {
     console.log(error);
@@ -99,8 +123,10 @@ async function deleteQuestion(req, res, id) {
   }
 }
 module.exports = {
-  getQuestions,
-  getQuestion,
+  getHTMLQuestions,
+  getCSSQuestions,
+  getCSSQuestionById,
+  getHTMLQuestionById,
   createQuestion,
   updateQuestion,
   deleteQuestion,
