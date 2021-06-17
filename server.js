@@ -2,9 +2,6 @@ const http = require("http");
 const {
   getHTMLQuestions,
   getHTMLQuestionById,
-  createQuestion,
-  updateQuestion,
-  deleteQuestion,
   getCSSQuestions,
   getCSSQuestionById,
 } = require("./controllers/questionController");
@@ -27,18 +24,6 @@ const server = http.createServer((req, res) => {
     getCSSQuestionById(req, res, id);
   } else if (req.url === "/api/questions" && req.method === "POST") {
     createQuestion(req, res);
-  } else if (
-    req.url.match(/\/api\/questions\/([0-9]+)/) &&
-    req.method === "PUT"
-  ) {
-    const id = req.url.split("/")[3];
-    updateQuestion(req, res, id);
-  } else if (
-    req.url.match(/\/api\/questions\/([0-9]+)/) &&
-    req.method === "DELETE"
-  ) {
-    const id = req.url.split("/")[3];
-    deleteQuestion(req, res, id);
   } else {
     res.writeHead(404, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ message: "Route not found" }));
