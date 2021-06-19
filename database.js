@@ -117,6 +117,30 @@ let insertCssQuestion = (
     );
   });
 };
+//function for deleting a HTML question
+let deleteHtmlQuestion = (id) => {
+  const sqlQuery = "DELETE FROM questionshtmlro WHERE id = ?";
+  return new Promise((resolve, reject) => {
+    pool.query(sqlQuery, [id], (error, deletedQuestion) => {
+      if (error) {
+        return reject(error);
+      }
+      return resolve(deletedQuestion);
+    });
+  });
+};
+//function for deleting a CSS question
+let deleteCssQuestion = (id) => {
+  const sqlQuery = "DELETE FROM questionscssro WHERE id = ?";
+  return new Promise((resolve, reject) => {
+    pool.query(sqlQuery, [id], (error, deletedQuestion) => {
+      if (error) {
+        return reject(error);
+      }
+      return resolve(deletedQuestion);
+    });
+  });
+};
 module.exports = {
   createTables,
   getAllHTMLQuestions,
@@ -125,4 +149,6 @@ module.exports = {
   getCSSQuestionById,
   insertHtmlQuestion,
   insertCssQuestion,
+  deleteHtmlQuestion,
+  deleteCssQuestion,
 };

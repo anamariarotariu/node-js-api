@@ -54,7 +54,7 @@ async function getCSSQuestionById(req, res, id) {
   }
 }
 //@desc post a new HTML question in db
-//@route POST /api/css-question/add
+//@route POST /api/css-questions/add
 async function insertHTMLQuestion(
   req,
   res,
@@ -88,7 +88,7 @@ async function insertHTMLQuestion(
   }
 }
 //@desc post a new HTML question in db
-//@route POST /api/html-question/add
+//@route POST /api/html-questions/add
 async function insertCSSQuestion(
   req,
   res,
@@ -121,6 +121,38 @@ async function insertCSSQuestion(
     console.log(error);
   }
 }
+//@desc delete a HTML question from db
+//@route DELETE /api/html-questions/:id
+async function deleteHtmlQuestion(req, res, id) {
+  try {
+    deletedQuestion = await Question.deleteHtmlQuestion(id);
+    if (!deletedQuestion) {
+      res.writeHead(409, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ message: "Question was not deleted from db" }));
+    } else {
+      res.writeHead(204, { "Content-Type": "application/json" });
+      res.end(JSON.stringify(deletedQuestion));
+    }
+  } catch (erorr) {
+    console.log(error);
+  }
+}
+//@desc delete a CSS question from db
+//@route DELETE /api/css-questions/:id
+async function deleteCssQuestion(req, res, id) {
+  try {
+    deletedQuestion = await Question.deleteCssQuestion(id);
+    if (!deletedQuestion) {
+      res.writeHead(409, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ message: "Question was not added in db" }));
+    } else {
+      res.writeHead(204, { "Content-Type": "application/json" });
+      res.end(JSON.stringify(deletedQuestion));
+    }
+  } catch (erorr) {
+    console.log(error);
+  }
+}
 module.exports = {
   getHTMLQuestions,
   getCSSQuestions,
@@ -128,4 +160,6 @@ module.exports = {
   getHTMLQuestionById,
   insertHTMLQuestion,
   insertCSSQuestion,
+  deleteHtmlQuestion,
+  deleteCssQuestion,
 };

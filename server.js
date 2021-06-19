@@ -6,6 +6,8 @@ const {
   getCSSQuestionById,
   insertHTMLQuestion,
   insertCSSQuestion,
+  deleteHtmlQuestion,
+  deleteCssQuestion,
 } = require("./controllers/questionController");
 const server = http.createServer((req, res) => {
   if (req.url === "/api/html-questions" && req.method === "GET") {
@@ -62,6 +64,18 @@ const server = http.createServer((req, res) => {
         result.nivel_dificultate
       );
     });
+  } else if (
+    req.url.match(/\/api\/html-questions\/delete\/([0-9]+)/) &&
+    req.method === "DELETE"
+  ) {
+    const id = req.url.split("/")[4];
+    deleteHtmlQuestion(req, res, id);
+  } else if (
+    req.url.match(/\/api\/css-questions\/delete\/([0-9]+)/) &&
+    req.method === "DELETE"
+  ) {
+    const id = req.url.split("/")[4];
+    deleteCssQuestion(req, res, id);
   } else {
     res.writeHead(404, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ message: "Route not found" }));

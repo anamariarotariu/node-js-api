@@ -61,6 +61,16 @@ function insertCssQuestion(
     nivel_dificultate
   );
 }
+//function for deleting a HTML question from db
+function deleteHtmlQuestion(id) {
+  questions.createTables();
+  return questions.deleteHtmlQuestion(id);
+}
+//function for deleting a CSS question from db
+function deleteCssQuestion(id) {
+  questions.createTables();
+  return questions.deleteCssQuestion(id);
+}
 module.exports = {
   findAllHtml,
   findAllCss,
@@ -68,4 +78,6 @@ module.exports = {
   findCssById,
   insertHtmlQuestion,
   insertCssQuestion,
+  deleteHtmlQuestion,
+  deleteCssQuestion,
 };
