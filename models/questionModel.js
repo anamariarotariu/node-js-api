@@ -19,9 +19,53 @@ function findCssById(id) {
   questions.createTables();
   return questions.getCSSQuestionById(id);
 }
+//function for inserting a HTML question in db
+function insertHtmlQuestion(
+  id,
+  question,
+  choice1,
+  choice2,
+  choice3,
+  answer,
+  nivel_dificultate
+) {
+  questions.createTables();
+  return questions.insertHtmlQuestion(
+    id,
+    question,
+    choice1,
+    choice2,
+    choice3,
+    answer,
+    nivel_dificultate
+  );
+}
+//function for inserting a CSS question in db
+function insertCssQuestion(
+  id,
+  question,
+  choice1,
+  choice2,
+  choice3,
+  answer,
+  nivel_dificultate
+) {
+  questions.createTables();
+  return questions.insertCssQuestion(
+    id,
+    question,
+    choice1,
+    choice2,
+    choice3,
+    answer,
+    nivel_dificultate
+  );
+}
 module.exports = {
   findAllHtml,
   findAllCss,
   findHtmlById,
   findCssById,
+  insertHtmlQuestion,
+  insertCssQuestion,
 };
